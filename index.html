@@ -78,6 +78,7 @@
                 <li><a class="flex min-h-11 items-center rounded px-3 text-sm text-muted transition-colors hover:bg-primary/10 hover:text-white" href="#approach">Методологія</a></li>
                 <li><a class="flex min-h-11 items-center rounded px-3 text-sm text-muted transition-colors hover:bg-primary/10 hover:text-white" href="#features">Можливості</a></li>
                 <li><a class="flex min-h-11 items-center rounded px-3 text-sm text-muted transition-colors hover:bg-primary/10 hover:text-white" href="#video">Відео-пояснення</a></li>
+                <li><a class="flex min-h-11 items-center rounded px-3 text-sm text-muted transition-colors hover:bg-primary/10 hover:text-white" href="#feedback">Зворотний зв’язок</a></li>
                 <li class="hidden md:block xl:hidden"><a class="flex min-h-11 items-center rounded px-3 text-sm text-muted transition-colors hover:bg-primary/10 hover:text-white" href="#contacts">Контакти</a></li>
                 <li><a class="flex min-h-11 items-center rounded px-3 text-sm text-muted transition-colors hover:bg-primary/10 hover:text-white" href="#privacy">Приватність</a></li>
               </ul>
@@ -318,7 +319,6 @@
               title="Відео-пояснення: що таке bottleneck у ПК і як його визначити"
               loading="lazy"
               allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-              allowfullscreen
               referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
           <figcaption class="mt-3 text-sm text-muted">Якщо відео не відтворюється, <a class="text-primary underline underline-offset-2 hover:text-primary-hover" href="https://youtu.be/52zvI6xfIZ4" target="_blank" rel="noopener" title="Відкрити відео на YouTube (нова вкладка)">відкрийте його на YouTube</a>.</figcaption>
@@ -354,11 +354,117 @@
       </div>
     </section>
 
+    <!-- ===================== FEEDBACK: форма зворотного зв'язку (ЛР №9) ===================== -->
+    <section class="py-12" id="feedback" aria-labelledby="feedback-title">
+      <div class="mx-auto grid w-full max-w-[1200px] grid-cols-1 gap-8 px-4 lg:grid-cols-5">
+        <div class="flex flex-col gap-4 lg:col-span-2">
+          <p class="text-sm font-semibold uppercase tracking-widest text-primary">05 / Зворотний зв’язок</p>
+          <h2 id="feedback-title" class="text-2xl font-bold leading-tight md:text-4xl">Знайшли неточність у розрахунку? Напишіть нам</h2>
+          <p class="max-w-[48ch] text-muted">Розкажіть про помилку, ідею чи комплектуючі, яких не вистачає в калькуляторі. Ми читаємо кожне повідомлення.</p>
+          <ul class="flex flex-col gap-3 text-sm text-muted">
+            <li class="flex items-start gap-3"><i class="fa-solid fa-microchip mt-1 text-primary" aria-hidden="true"></i> <span>Вкажіть модель CPU та GPU, якщо питання про конкретну збірку.</span></li>
+            <li class="flex items-start gap-3"><i class="fa-solid fa-clock mt-1 text-primary" aria-hidden="true"></i> <span>Зазвичай відповідаємо протягом двох робочих днів.</span></li>
+            <li class="flex items-start gap-3"><i class="fa-solid fa-shield-halved mt-1 text-primary" aria-hidden="true"></i> <span>Контакти потрібні лише для відповіді. Докладніше в розділі <a class="text-primary underline underline-offset-2 hover:text-primary-hover" href="#privacy">«Приватність»</a>.</span></li>
+          </ul>
+        </div>
+
+        <!-- novalidate: перевірку виконує validation.js, а не спливаючі підказки браузера -->
+        <form id="feedbackForm" class="grid grid-cols-1 gap-5 rounded-2xl border border-primary/30 bg-surface p-6 shadow-lg shadow-black/40 md:grid-cols-2 lg:col-span-3" action="#" method="post" novalidate aria-labelledby="feedback-form-title">
+          <h3 id="feedback-form-title" class="text-xl font-semibold md:col-span-2">Форма зворотного зв’язку</h3>
+          <p class="-mt-3 text-xs text-muted md:col-span-2">Поля з <span class="text-error" aria-hidden="true">*</span><span class="sr-only">зірочкою</span> обов’язкові.</p>
+
+          <!-- Ім'я -->
+          <div class="flex min-w-0 flex-col gap-2">
+            <label class="text-sm font-medium" for="username">Ім’я <span class="text-error" aria-hidden="true">*</span></label>
+            <div class="relative">
+              <input id="username" name="username" type="text" autocomplete="name" maxlength="60" required
+                aria-describedby="usernameHint usernameError" aria-invalid="false"
+                class="field min-h-11 w-full rounded-lg border-[1.5px] border-line bg-ink py-2 pl-3 pr-10 text-base text-white shadow-sm">
+              <i class="fa-solid fa-circle-check pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 text-success" data-success-icon aria-hidden="true"></i>
+            </div>
+            <p id="usernameHint" class="text-xs text-muted">Щонайменше 2 символи.</p>
+            <p id="usernameError" class="hidden items-start gap-2 text-sm text-error" aria-live="polite"><i class="fa-solid fa-circle-exclamation mt-0.5" aria-hidden="true"></i><span data-error-text></span></p>
+          </div>
+
+          <!-- Email -->
+          <div class="flex min-w-0 flex-col gap-2">
+            <label class="text-sm font-medium" for="email">Електронна пошта <span class="text-error" aria-hidden="true">*</span></label>
+            <div class="relative">
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="120" required
+                aria-describedby="emailHint emailError" aria-invalid="false"
+                class="field min-h-11 w-full rounded-lg border-[1.5px] border-line bg-ink py-2 pl-3 pr-10 text-base text-white shadow-sm">
+              <i class="fa-solid fa-circle-check pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 text-success" data-success-icon aria-hidden="true"></i>
+            </div>
+            <p id="emailHint" class="text-xs text-muted">Наприклад, user@example.com.</p>
+            <p id="emailError" class="hidden items-start gap-2 text-sm text-error" aria-live="polite"><i class="fa-solid fa-circle-exclamation mt-0.5" aria-hidden="true"></i><span data-error-text></span></p>
+          </div>
+
+          <!-- Телефон -->
+          <div class="flex min-w-0 flex-col gap-2">
+            <label class="text-sm font-medium" for="phone">Телефон <span class="text-error" aria-hidden="true">*</span></label>
+            <div class="relative">
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" required
+                aria-describedby="phoneHint phoneError" aria-invalid="false"
+                class="field min-h-11 w-full rounded-lg border-[1.5px] border-line bg-ink py-2 pl-3 pr-10 text-base text-white shadow-sm">
+              <i class="fa-solid fa-circle-check pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 text-success" data-success-icon aria-hidden="true"></i>
+            </div>
+            <p id="phoneHint" class="text-xs text-muted">Формат +380XXXXXXXXX, без пробілів і дужок.</p>
+            <p id="phoneError" class="hidden items-start gap-2 text-sm text-error" aria-live="polite"><i class="fa-solid fa-circle-exclamation mt-0.5" aria-hidden="true"></i><span data-error-text></span></p>
+            <!-- пропозиція виправлення формату (окрема UX-функція, не частина RegEx) -->
+            <button id="phoneFix" type="button" class="hidden min-h-11 items-center gap-2 self-start rounded-lg border border-primary/40 px-3 py-2 text-sm text-primary transition-colors hover:bg-primary/10"></button>
+          </div>
+
+          <!-- Тема (необов'язкове поле) -->
+          <div class="flex min-w-0 flex-col gap-2">
+            <label class="text-sm font-medium" for="topic">Тема звернення</label>
+            <select id="topic" name="topic" aria-describedby="topicHint" class="field min-h-11 w-full rounded-lg border-[1.5px] border-line bg-ink px-3 py-2 text-base text-white shadow-sm">
+              <option>Питання про калькулятор</option>
+              <option>Помилка в розрахунку</option>
+              <option>Додати комплектуючі</option>
+              <option>Інше</option>
+            </select>
+            <p id="topicHint" class="text-xs text-muted">Необов’язково.</p>
+          </div>
+
+          <!-- Повідомлення -->
+          <div class="flex min-w-0 flex-col gap-2 md:col-span-2">
+            <label class="text-sm font-medium" for="message">Повідомлення <span class="text-error" aria-hidden="true">*</span></label>
+            <div class="relative">
+              <textarea id="message" name="message" rows="5" maxlength="1000" required
+                aria-describedby="messageHint messageError" aria-invalid="false"
+                class="field min-h-32 w-full resize-y rounded-lg border-[1.5px] border-line bg-ink py-2 pl-3 pr-10 text-base text-white shadow-sm"></textarea>
+              <i class="fa-solid fa-circle-check pointer-events-none absolute right-3 top-3 hidden text-success" data-success-icon aria-hidden="true"></i>
+            </div>
+            <p id="messageHint" class="text-xs text-muted">Від 10 до 1000 символів.</p>
+            <p id="messageError" class="hidden items-start gap-2 text-sm text-error" aria-live="polite"><i class="fa-solid fa-circle-exclamation mt-0.5" aria-hidden="true"></i><span data-error-text></span></p>
+          </div>
+
+          <!-- Згода -->
+          <div class="flex flex-col gap-2 md:col-span-2">
+            <div id="agreementBox" class="field flex items-start gap-3 rounded-lg border-[1.5px] border-line p-3">
+              <input id="agreement" name="agreement" type="checkbox" required
+                aria-describedby="agreementError" aria-invalid="false"
+                class="mt-0.5 h-6 w-6 shrink-0 cursor-pointer accent-primary">
+              <label class="cursor-pointer text-sm" for="agreement">Погоджуюсь з <a class="text-primary underline underline-offset-2 hover:text-primary-hover" href="#privacy">політикою конфіденційності</a> <span class="text-error" aria-hidden="true">*</span></label>
+            </div>
+            <p id="agreementError" class="hidden items-start gap-2 text-sm text-error" aria-live="polite"><i class="fa-solid fa-circle-exclamation mt-0.5" aria-hidden="true"></i><span data-error-text></span></p>
+          </div>
+
+          <div class="flex flex-col gap-3 md:col-span-2 md:flex-row md:items-center md:justify-between">
+            <p id="formStatus" class="hidden items-center gap-2 text-sm text-error" role="status"></p>
+            <button id="submitBtn" class="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 py-3 font-semibold text-ink transition-colors duration-150 hover:bg-primary-hover hover:shadow-[0_0_12px_rgba(0,180,255,0.45)] active:bg-primary-pressed disabled:cursor-not-allowed disabled:opacity-50 md:ml-auto md:w-auto" type="submit">
+              <span data-btn-label>Надіслати</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
     <!-- ===================== MEDIA: карта Google Maps (ЛР №7, етап 7) ===================== -->
     <section class="py-12" id="contacts" aria-labelledby="contacts-title">
       <div class="mx-auto grid w-full max-w-[1200px] grid-cols-1 gap-8 px-4 lg:grid-cols-5">
         <div class="flex flex-col gap-4 lg:col-span-2">
-          <p class="text-sm font-semibold uppercase tracking-widest text-primary">05 / Контакти</p>
+          <p class="text-sm font-semibold uppercase tracking-widest text-primary">06 / Контакти</p>
           <h2 id="contacts-title" class="text-2xl font-bold leading-tight md:text-4xl">Де нас знайти</h2>
           <address class="flex flex-col gap-3 not-italic text-muted">
             <span class="flex items-start gap-3"><i class="fa-solid fa-location-dot mt-1 text-primary" aria-hidden="true"></i> <span>м. Львів, вул. Митрополита Андрея, 5</span></span>
@@ -418,6 +524,7 @@
             <li><a class="inline-flex min-h-11 items-center text-sm text-muted transition-colors hover:text-white" href="#configurator">Конфігуратор</a></li>
             <li><a class="inline-flex min-h-11 items-center text-sm text-muted transition-colors hover:text-white" href="#calculator">Калькулятор</a></li>
             <li><a class="inline-flex min-h-11 items-center text-sm text-muted transition-colors hover:text-white" href="#saved">Мої збірки</a></li>
+            <li><a class="inline-flex min-h-11 items-center text-sm text-muted transition-colors hover:text-white" href="#feedback">Зворотний зв’язок</a></li>
           </ul>
         </nav>
 
@@ -454,6 +561,19 @@
     </div>
   </footer>
 
+  <!-- Модальне вікно «Імітація успішного надсилання» (ЛР №9).
+       Нативний <dialog>: showModal() сам робить фокус-пастку, ставить фон inert і закриває вікно клавішею Esc. -->
+  <dialog id="successModal" aria-labelledby="modalTitle" aria-describedby="modalText"
+    class="m-auto w-[calc(100%-2rem)] max-w-md rounded-2xl border border-primary/30 bg-surface p-0 text-white shadow-2xl shadow-black/60 backdrop:bg-ink/80 backdrop:backdrop-blur-sm">
+    <div class="flex flex-col items-start gap-4 p-6 md:p-8">
+      <span class="grid h-12 w-12 place-items-center rounded-full bg-success/15 text-2xl text-success"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+      <h2 id="modalTitle" class="text-2xl font-bold leading-tight">Дякуємо!</h2>
+      <p id="modalText" class="text-muted">Форма успішно пройшла клієнтську валідацію. Це демонстрація успішного надсилання: дані не передаються на сервер.</p>
+      <button id="modalClose" type="button" class="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-8 py-3 font-semibold text-ink transition-colors duration-150 hover:bg-primary-hover hover:shadow-[0_0_12px_rgba(0,180,255,0.45)] active:bg-primary-pressed">Закрити</button>
+    </div>
+  </dialog>
+
+  <script src="assets/js/validation.js" defer></script>
   <script>
     // Мобільне меню: перемикаємо клас hidden та aria-expanded
     const menuToggle = document.getElementById('menu-toggle');

@@ -10,6 +10,8 @@
   --color-primary: #00b4ff;
   --color-background: #0b0f1a;
   --color-text-on-primary: #0b0f1a;
+  --color-error: #ff5252;
+  --color-success: #2ed47a;
   --focus-ring: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary);
 
   color-scheme: dark;
@@ -53,7 +55,41 @@
   }
 }
 
-/* 5. Зменшена анімація (prefers-reduced-motion) */
+/* 5. Форма зворотного зв'язку (ЛР №9): 4 стани поля — normal / focus / error / success.
+   Стан задає JS через атрибут data-state. Селектори з :is() мають вищу специфічність,
+   ніж утиліти Tailwind, тому hover і focus не «перебивають» червону чи зелену рамку. */
+.field {
+  transition: border-color 0.15s ease;
+}
+
+.field:hover {
+  border-color: rgb(0 180 255 / 60%);
+}
+
+.field:is(:focus-visible, :focus-within) {
+  border-color: var(--color-primary);
+}
+
+.field[data-state="error"],
+.field[data-state="error"]:is(:hover, :focus-visible, :focus-within) {
+  border-color: var(--color-error);
+}
+
+.field[data-state="success"],
+.field[data-state="success"]:is(:hover, :focus-visible, :focus-within) {
+  border-color: var(--color-success);
+}
+
+.field[data-state="error"]:focus-visible {
+  outline-color: var(--color-error);
+}
+
+/* Поки відкрите модальне вікно, фонова сторінка не прокручується */
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* 6. Зменшена анімація (prefers-reduced-motion) */
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
