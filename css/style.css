@@ -1,0 +1,61 @@
+/* ==========================================================
+   FrameBoost — користувацький CSS (ЛР №6)
+   Layout, відступи, типографіка, кольори, hover/focus та
+   адаптивність винесені в Tailwind-класи в index.html.
+   Тут залишилось лише те, що незручно писати утилітами.
+   ========================================================== */
+
+/* 1. Токени дизайн-системи (ЛР №4) — використовуються в кастомних правилах */
+:root {
+  --color-primary: #00b4ff;
+  --color-background: #0b0f1a;
+  --color-text-on-primary: #0b0f1a;
+  --focus-ring: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary);
+
+  color-scheme: dark;
+}
+
+/* 2. Доступність: видимий фокус для всіх інтерактивних елементів */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* 3. Skip-link: прихований, поки не отримає фокус */
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 20;
+  padding: 8px 16px;
+  background: var(--color-primary);
+  color: var(--color-text-on-primary);
+  border-radius: 8px;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* 4. Hero: складний градієнт фону та маска зображення */
+.hero-bg {
+  background: radial-gradient(ellipse at 80% 40%, rgb(47 107 255 / 18%), transparent 60%);
+}
+
+.hero-img {
+  mask-image: linear-gradient(to right, transparent, #000 35%);
+}
+
+@media (max-width: 767px) {
+  .hero-img {
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  }
+}
+
+/* 5. Зменшена анімація (prefers-reduced-motion) */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
